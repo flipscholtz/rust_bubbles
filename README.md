@@ -3,6 +3,9 @@ A simple game: Catch numbered bubbles with your ship to make up a target sum.
 
 Uses the ggez game engine for rendering and input handling.
 
+## Running
+`cargo run`
+
 ## Code
 - All game state lives in the GameState struct ( structs.rs ).
 - Game logic lives in GameState implementation ( game.rs ).
