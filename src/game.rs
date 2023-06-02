@@ -32,6 +32,7 @@ impl GameState {
                 position: Vec2::new(500.0, 500.0),
                 speed: constants::SHIP_SPEED,
             },
+            paused: false,
         }
     }
 
@@ -186,7 +187,10 @@ impl GameState {
 
         self.round_time_remaining_seconds = self.round_allowed_time_seconds;
         self.current_round += 1;
-        self.round_allowed_time_seconds = constants::STARTING_ROUND_TIME_SECONDS - (constants::TIME_DEDUCTED_PER_ROUND * (self.current_round as u64 - 1));
+        if self.round_allowed_time_seconds > constants::MIN_ROUND_TIME_SECONDS {
+            self.round_allowed_time_seconds -= constants::TIME_DEDUCTED_PER_ROUND;
+        }
+        
         self.round_time_bonus = 0;
         self.current_mode = GameMode::NextRoundScreen;
     }
@@ -196,7 +200,7 @@ impl EventHandler for GameState {
     fn update(&mut self, ctx: &mut Context) -> GameResult {
         self.handle_input(ctx);
 
-        if !matches!(self.current_mode, GameMode::Running) {
+        if self.paused || !matches!(self.current_mode, GameMode::Running) {
             return Ok(());
         }
 
@@ -266,7 +270,11 @@ impl EventHandler for GameState {
                     self.prepare_next_round();
                 }
             },
-            GameMode::Running => (),
+            GameMode::Running => {
+                if input.keycode.unwrap() == KeyCode::P {
+                    self.paused = !self.paused;
+                }
+            },
             _ => {
                 // Spacebar starts the game:
                 if input.keycode.unwrap() == KeyCode::Space {

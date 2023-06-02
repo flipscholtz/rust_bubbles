@@ -1,7 +1,7 @@
 use crate::constants;
 use crate::structs::{GameMode, GameState};
 use ggez::glam::Vec2;
-use ggez::graphics::{self, Canvas, Color, DrawParam, PxScale, Rect, Text, TextFragment};
+use ggez::graphics::{self, Canvas, Color, DrawParam, PxScale, Text, TextFragment};
 use ggez::mint::Point2;
 use ggez::{Context, GameResult};
 
@@ -38,7 +38,7 @@ fn draw_current_total(_ctx: &Context, game: &GameState, canvas: &mut Canvas) {
     });
     canvas.draw(
         &text,
-        DrawParam::from(Vec2::new((game.window_size.width - 420) as f32, 20.0)),
+        DrawParam::from(Vec2::new((10) as f32, 20.0)),
     );
 }
 
@@ -56,9 +56,10 @@ fn draw_remaining_time(_ctx: &Context, canvas: &mut Canvas, game: &GameState) {
         font: Some("LiberationMono-Regular".into()),
         scale: Some(PxScale::from(65.0)),
     });
+
     canvas.draw(
         &text,
-        DrawParam::from(Vec2::new((10) as f32, 20.0)),
+        DrawParam::from(Vec2::new((game.window_size.width - 420) as f32, 20.0)),
     );
 }
 

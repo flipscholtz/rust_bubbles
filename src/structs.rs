@@ -27,6 +27,7 @@ pub struct GameState {
     pub ship: Ship,
     pub bubbles: Vec<Bubble>,
     pub next_bubble_index: u32,
+    pub paused: bool,
 }
 
 #[derive(Debug)]
