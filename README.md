@@ -6,6 +6,9 @@ Uses the ggez game engine for rendering and input handling.
 ## Running
 `cargo run`
 
+## Settings
+constants.rs contains various settings related to the difficulty and appearance of the game, although there are still some magic numbers dotted about the code.
+
 ## Code
 - All game state lives in the GameState struct ( structs.rs ).
 - Game logic lives in GameState implementation ( game.rs ).
